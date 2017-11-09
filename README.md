@@ -1,9 +1,12 @@
 # CSC522_project
 Repository for CSC522 project
+
 Topic: Spotify Top Track Prediction
 
-## Midterm Result
-[Midterm result in Jupyter Notebook](https://github.com/thsieh4/CSC522_project/blob/master/CSS522_current_results_Nov07.ipynb)
+## Project Progress
+- [Midterm result Nov. 07](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov07.ipynb)
+- [Nov. 09](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov09.ipynb)
+  - Add new 5 features, AUC increase slightly
 
 ## Notes
 ### Papers
