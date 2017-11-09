@@ -13,5 +13,6 @@ Topic: Spotify Top Track Prediction
 * figure 
 ** label need to be after caption
 
-Software Requirements: Python with libraries (NumPy, pandas, SciPy, Matplotlib, scikit-learn, spotipy).
-Jupyter Notebook.
+###Software Requirements
+* Python with libraries (NumPy, pandas, SciPy, Matplotlib, scikit-learn, spotipy).
+* Jupyter Notebook.
