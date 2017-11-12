@@ -8,6 +8,9 @@ Topic: Spotify Top Track Prediction
 - Nov. 09: [Feature Generation](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov09.ipynb)
 - Nov. 10: [EDA](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov10.ipynb)
 
+## Project Report
+[Ongoing report](/Report.md)
+
 ## Notes
 ### Papers
 [Precision-recall curves](https://dl.acm.org/citation.cfm?id=1143874)
