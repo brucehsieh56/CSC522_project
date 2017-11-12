@@ -19,3 +19,6 @@ Topic: Spotify Top Track Prediction
 ### Software Requirements
 * Python with libraries (NumPy, pandas, SciPy, Matplotlib, scikit-learn, spotipy).
 * Jupyter Notebook.
+
+### Contributors
+[ragarwa7](https://github.com/ragarwa7), [thsieh4](https://github.com/thsieh4) and [yhong3](https://github.com/yhong3).
