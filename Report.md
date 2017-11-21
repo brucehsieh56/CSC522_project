@@ -1,6 +1,6 @@
 ## Background
 
-(Why is this problem important?) This problem is important, because before releasing a new album or EP, a music company would like or eager to know whether this album will be a hit or not. If there is a great chance that this album will be a great hit, then there is a higher possibility that a music company can make money and will be more willing to invest in creating new songs for this album. Therefore, a model that is capable of predicting whether a song will be a hit is very important in music industry. In our project, we are trying to build such a model by using the audio features of each songs we have collected. Furthermore, we want to know what kinds of musical features will more likely make a song be a hit.
+(Why is this problem important?) This problem is important, because before releasing a new album or EP, a music company would like or eager to know whether this album will be a hit or not. If there is a great chance that this album will be a great hit, then there is a higher possibility that a music company can make money and will be more willing to invest in creating new songs for this album. For these reasons, a model that is capable of predicting whether a song will be a hit is very important in music industry. In our project, we are trying to build such a model by using the audio features of each songs we have collected. Furthermore, we want to know what kinds of musical features will more likely make a song be a hit.
 
 ## Method
 
