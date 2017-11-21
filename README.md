@@ -7,6 +7,8 @@ Topic: Spotify Top Track Prediction
 - Nov. 07: [Midterm result](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov07.ipynb)
 - Nov. 09: [Feature Generation](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov09.ipynb)
 - Nov. 10: [EDA](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov10.ipynb)
+- Nov. 21: [Feature Selection](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov21.ipynb)
+
 
 ## Project Report
 [Ongoing report](/Report.md)
