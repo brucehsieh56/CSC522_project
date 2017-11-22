@@ -5,19 +5,21 @@ In addition, before releasing a new album or EP, a music company would like or e
 
 ## Method
 ### Data Collection
-In this project, the data of top songs (y=1) is collected from the charts of Shazam Global Top 100 and Spotify Top 200 in 2017. On the other side, non-top songs (y=0) are randomly chosen across different genres from Spotify. In addition, each song or track contains 15 different types of audio features (See Table 1) that are provided by Spotify API AB, and we used the Python package, spotipy, to request these audio features automatically. At this point, our self-collected dataset contains 10809 observations (Top songs: 7700; non-top songs: 3109) and 15 features.
-
-### Feature Generation
-In addition to the 15 audio features extracted from Spotify Web API, we further generate 5 features for each song based on the song title. Basically, if there are some keywords appear in one song title, then we say this song has certain features. To be specific, 
-
-### Data Preprocessing
-The first reasonable procedure of data cleaning is to remove the duplicates in our data, since most of the top songs will remain on the top chart for several weeks. After dropping duplicates, we have only 764 songs in the top set and 3015 songs in the non-top set. Secondly, instead of imputation, we dropped the observations whose features contain missing values, because only 11 observations containing missing values. Up to this point, we have 763 songs as top songs and 3005 as non-top songs (See Table 2).
+In this project, the data of top songs (y=1) is collected from the charts of Shazam Global Top 100 and Spotify Top 200 in 2017. On the other side, non-top songs (y=0) are randomly chosen across different genres from Spotify. In addition, each song or track contains 15 different types of audio features (See Table 1) that are provided by Spotify API AB, and we used the Python package, spotipy, to request these audio features automatically. At this point, our self-collected dataset contains 10809 observations (top songs: 7700; non-top songs: 3109) and 15 features. One noteworthy fact is that our data is highly-imbalanced (20% of top songs; 80% of non-top songs). Therefore, a suitable evaluation scoring metric is needed to quantify the binary classification performance. According to Fawcett, Receiver Operating Characteristic (ROC) Curve and Area Under ROC Curve, or AUC for short, are much proper for the evaluation of an imbalanced data when comparing with accuracy.
 
 ### Classification Techniques
 #### Logistic Regression
 The first classification model we utilized is Logistic Regression, which is an adaption of Linear Regression, and there are several reasons to choose Logistic Regression to start with. For example, Logistic Regression is relatively fast in the process of training and prediction. More importantly, it can provide us with the information about how important our features are, and this would be helpful for future feature selection. Practically, Logistic Regression has different variations, and we chose the one with L2 regularization in this project. Logistic Regression has one hyperparameter, C, to control the model complexity. The lower the value of C, the higher the regularization of the model is.
 
+#### Support Vector Machine (SVM) with Radial Basis Function (RBF) Kernel
+Secondly, we used SVM with RBF kernel as our nonlinear classification model. The complexity of SVM is determined by the two hyperparameters (C for regularization and σ for the RBF kernel). The reason we choose SVM is that it is a nonlinear classifier. And the reason to use RBF kernel is due to its common
+
 ## Experiment
+### Data Preprocessing
+The first reasonable procedure of data cleaning is to remove the duplicates in our data, since most of the top songs will remain on the top chart for several weeks. After dropping duplicates, we have only 764 songs in the top set and 3015 songs in the non-top set. Secondly, instead of imputation, we dropped the observations whose features contain missing values, because only 11 observations containing missing values. Up to this point, we have 763 songs as top songs and 3005 as non-top songs (See Table 2).
+
+### Feature Generation
+In addition to the 15 audio features extracted from Spotify Web API, we further generate 5 features for each song based on the song title. Basically, if there are some keywords appear in one song title, then we say this song has certain features. To be specific, 
 
 ### Exploratory Data Analysis (EDA)
 As mentioned above, there are 20 features contained in our music dataset. To get a high-level understanding of our dataset, we conduct simple EDA in this section. Since the features *acousticness*, *danceability*, *energy*, *instrumentalness*, *liveness*, *speechiness* and *valence* have values ranged within 0 and 1, it is easier to analyze them together as a group. Shown in the boxplot below (**Figure 1**), we can see that most of audio features, except for *liveness*, have quite different distribution between the top and the non-top. For example, *instrumentalness* for top songs has very densed distribution near value 0, this means that top songs have more vocal content.
@@ -32,43 +34,51 @@ Figure 2.
 
 After simple graphical analysis, we know that features such as acousticness, danceability, energy, instrumentalness, speechiness, valence, track_number, duration_ms, loudness could be representative or distinctive and thus they could be a good feature for our binary classification problem. Alternatively, features including liveness, available_markets, key and tempo are not that representative, and could be dropped once we want to redcue the model complexity.
 
-### Result
-The experiment results are summarized in Table 2 and Figure 3 below. 
+### Cross Validation and Grid Search 
+Right before building any binary classifiers, the dataset is split into training set and test set. In detail, we randomly pick 30% of the data as the unseen test data using stratified sampling due to the imbalanced distribution of classes. The rest 70% of the data is used for model building and model selection. We use the method of Grid Search with five-fold cross validation to train and validate the models, since Grid Search allows us to select the best model with the corresponding hyperparameters by trying all of the specified values for a classifier using training set. In addition, our models are optimized according to **AUC** and **accuracy**. For instance, we select 2 models for each of the three machine learning techniques, one outputs the best AUC score and the other ouputs the best accuracy. After that, the 30% unseen data is fed into those trained classifiers for performance evaluation.
 
-Model | ROC-AUC
---- | --- 
-baseline | 0.5000 
-Logistic Regression | 0.8518
-SVM - RBF kernel | 0.7372
-Random Forest | 0.8627
+### Result
+The experimental results are summarized in Table 2 and Figure 3 and 4 below. Noted that the upper half of Table 2 is the results using all of 20 features while the lower half using only 14 features. Clearly, for all of the three classifiers, their accuracy are higher than the baseline model 0.7975, which is calculated as the ratio of the majority labels (non-top songs) to the total number of data (non-top songs plus top songs). This shows that our models beat the baseline model and are great classifiers in general. However, as mentioned in the previous section, the accuracy only tells us part of the story about our model, and we are more interested in AUC instead.
+
+Model               | Accuracy | Best Hyperparameter | ROC-AUC | Best Hyperparameter
+---                 | ---      | ---                 | ---     | ---
+baseline            | 0.7975   | None                | 0.5000  | None
+Logistic Regression | 0.8453   | C=1.0               | 0.8518  | C=1.0
+SVM - RBF kernel    | 0.8621   | C=0.1, gamma=0.1    | 0.8475  | C=10.0, gamma=0.001
+Random Forest       | 0.8621   | max depth=13, # of estimators=140 | 0.8654 | max depth=9, # of estimators=230 
+
+Model               | Accuracy | Best Hyperparameter | ROC-AUC | Best Hyperparameter
+---                 | ---      | ---                 | ---     | ---
+baseline            | 0.7975   | None                | 0.5000  | None
+Logistic Regression | 0.8479   | C=10.0              | 0.8537  | C=100.0
+SVM - RBF kernel    | 0.8497   | C=0.1, gamma=0.5    | 0.8391  | C=10.0, gamma=0.001
+Random Forest       | 0.8541   | max depth=15, # of estimators=150 | 0.8567 | max depth=9, # of estimators=230
+
+Table 2
 
 ![](/figures/ROCAUC_20features.png)
 Figure 3.
 
-Looking at AUC scores, it is not hard to find out that our three classifiers are much better than the random guessing (0.5). For Logistic Regression model, although its AUC is slightly the lower than the Random Forest, it does provide several advantages over the Random Forest. Firstly, as shown in Figure 4, it outputs the weight of each feature, which gives us an idea about the relationship between features and class prediction. To be specific, as a weight gets close to zero, this feature becomes less important in top song prediction. Using feature danceability as an example, when a given song has a higher value of danceability, this song has a higher probability to be listed in the Top Chart. This result is in agreement with what we have found earlier in Figure 1. Based on the value of weights, we might want to remove those features (e.g. key, mode etc.) that contributes little to the prediction.
+![](/figures/ROCAUC_14features.png)
+Figure 4.
+
+Looking at AUC scores, it is not hard to find out that our three classifiers are much better than the random guessing (0.5). For Logistic Regression model, although its AUC is slightly the lower than the Random Forest, it does provide several advantages over the Random Forest. Firstly, as shown in Figure 5, it outputs the weight of each feature, which gives us an idea about the relationship between features and class prediction. To be specific, as a weight gets close to zero, this feature becomes less important in top song prediction. Using feature danceability as an example, when a given song has a higher value of danceability, this song has a higher probability to be listed in the Top Chart. This result is in agreement with what we have found earlier in Figure 1. Based on the value of weights, we might want to remove those features (e.g. key, mode etc.) that contributes little to the prediction.
 
 ![](/figures/Coeff_20features.png)
-Figure 4.
+Figure 5.
+
 
 SVM with RBF kernel has higher accuracy than Logistic Regression since SVM with RBF kernel is nonlinear while Logistic Regression is linear. However, kernel SVM has much lower AUC. To interpret this result, recall that SVM is not good at probability prediction, and AUC is basically constructed and related to the output probabilities of a model.
 
 ![](/figures/FeatureImportance_20features.png)
-Figure 5.
+Figure 6.
 
 Finally, Random Forest produces the highest test AUC and accuracy. Similar to Logistic Regression, Random Forest can also show us the importance of every feature (shown in Figure 5). However, unlike the weight of Logistic Regression, feature importance does not point out a feature will increase or decrease the possibility of a song to be hit, but only the importance when building a model. Perhaps the most significant point to note is that, in order to generate such a high AUC score, Random Forest must used as many as 140 decision trees to build a classifier. Compared to Logistic Regression, Random Forest not only takes longer time in model training, but also increases the complexity of a model. In fact, our Random Forest model has simply 0.0109 higher AUC than the Logistic Regression model, but has much higher model complexity and time complexity. Therefore, if time, memory, and interpretation are key concerns in an application, it might be more reasonable to adopt Logistic Regression instead.
 
 As mentioned in background, we want to simplify the model and keep the similar model performance at the same time. We also
-want to know which musical features will more likely make a song be a hit, because in that way, music companies can focus more on these representative musical features when writing or creating a song. 
+want to know which musical features will more likely make a song be a hit, because in that way, music companies can focus more on these representative musical features when writing or creating a song.  
 
 According to Figure 4, we know that **available_markets**, **key**, **mode**, **tempo**, **remix** and **radio_edit** have weight close to zero. Basically, this shows that they contribute little to the top song predition. Therefore, we remove those 6 musical features to simplify the models. The results are shown in Table 3 and Figure 6. Compared to Table 2 above, all of the three classifiers produced similar results, which proves that those 6 features we have dropped are not that useful in our problem, and more importantly, we succeed in reducing the model complexity from the aspect of feature selection. However, in order to maintain the similar performance, our Random Forest model must use as many as 230 estimators (140 previously), which somewhat increases the model complexity.
 
-Model | ROC-AUC
---- | --- 
-baseline | 0.5000 
-Logistic Regression | 0.8537
-SVM - RBF kernel | 0.7578
-Random Forest | 0.8567
 
 
-![](/figures/ROCAUC_14features.png)
-Figure 6.
