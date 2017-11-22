@@ -45,22 +45,30 @@ Random Forest | 0.8627
 ![](/figures/ROCAUC_20features.png)
 Figure 3.
 
-Looking at AUC scores, it is not hard to find out that our three classifiers are much better than the random guessing (0.5). For Logistic Regression model, although its AUC is slightly the lower than the Random Forest, it does provide several advantages over the Random Forest. Firstly, as shown in Figure 4, it outputs the weight of each feature, which gives us an idea about the relationship between features and class prediction. To be specific, as a weight gets close to zero, this feature becomes less important in top song prediction. Using feature danceability as an example, when a given song has a higher value of danceability, this song has a higher probability to be listed in the Top Chart. This result is in agreement with what we have found earlier in Figure 1. Based on the value of weights, we might want to remove those features (e.g. duration_ms, energy, etc.) that contributes little to the prediction.
+Looking at AUC scores, it is not hard to find out that our three classifiers are much better than the random guessing (0.5). For Logistic Regression model, although its AUC is slightly the lower than the Random Forest, it does provide several advantages over the Random Forest. Firstly, as shown in Figure 4, it outputs the weight of each feature, which gives us an idea about the relationship between features and class prediction. To be specific, as a weight gets close to zero, this feature becomes less important in top song prediction. Using feature danceability as an example, when a given song has a higher value of danceability, this song has a higher probability to be listed in the Top Chart. This result is in agreement with what we have found earlier in Figure 1. Based on the value of weights, we might want to remove those features (e.g. key, mode etc.) that contributes little to the prediction.
 
 ![](/figures/Coeff_20features.png)
 Figure 4.
 
-SVM with RBF kernel has higher accuracy than Logistic Regression since SVM with RBF kernel is nonlinear while Logistic Regression is linear, while kernel SVM has much lower AUC. To interpret this result, recall that SVM is not good at probability prediction, and AUC is basically constructed and related to the output probabilities of a model.
+SVM with RBF kernel has higher accuracy than Logistic Regression since SVM with RBF kernel is nonlinear while Logistic Regression is linear. However, kernel SVM has much lower AUC. To interpret this result, recall that SVM is not good at probability prediction, and AUC is basically constructed and related to the output probabilities of a model.
 
 ![](/figures/FeatureImportance_20features.png)
 Figure 5.
 
 Finally, Random Forest produces the highest test AUC and accuracy. Similar to Logistic Regression, Random Forest can also show us the importance of every feature (shown in Figure 5). However, unlike the weight of Logistic Regression, feature importance does not point out a feature will increase or decrease the possibility of a song to be hit, but only the importance when building a model. Perhaps the most significant point to note is that, in order to generate such a high AUC score, Random Forest must used as many as 140 decision trees to build a classifier. Compared to Logistic Regression, Random Forest not only takes longer time in model training, but also increases the complexity of a model. In fact, our Random Forest model has simply 0.0109 higher AUC than the Logistic Regression model, but has much higher model complexity and time complexity. Therefore, if time, memory, and interpretation are key concerns in an application, it might be more reasonable to adopt Logistic Regression instead.
 
-As mentioned in background, we want to simplify the model and keep the similar model performance at the same time, and also
-want to know which musical features will more likely make a song be a hit, because in that way, music companies can focus more on these representative features when writing or creating a song. 
+As mentioned in background, we want to simplify the model and keep the similar model performance at the same time. We also
+want to know which musical features will more likely make a song be a hit, because in that way, music companies can focus more on these representative musical features when writing or creating a song. 
 
-According to Figure 1, we know that mode, remix and radio_edit
+According to Figure 4, we know that **available_markets**, **key**, **mode**, **tempo**, **remix** and **radio_edit** have weight close to zero. Basically, this shows that they contribute little to the top song predition. Therefore, we remove those 6 musical features to simplify the models. The results are shown in Table 3 and Figure 6. Compared to Table 2 above, all of the three classifiers produced similar results, which proves that those 6 features we have dropped are not that useful in our problem, and more importantly, we succeed in reducing the model complexity from the aspect of feature selection. However, in order to maintain the similar performance, our Random Forest model must use as many as 230 estimators (140 previously), which somewhat increases the model complexity.
+
+Model | ROC-AUC
+--- | --- 
+baseline | 0.5000 
+Logistic Regression | 0.8537
+SVM - RBF kernel | 0.7578
+Random Forest | 0.8567
 
 
-
+![](/figures/ROCAUC_14features.png)
+Figure 6.
