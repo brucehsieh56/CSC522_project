@@ -5,6 +5,9 @@
 - What is the evaluation method? okay
 - What are the results and what can you know from the results? okay
 
+TO BE ADDED:
+Prior to this research SVM was the best classification techniques reported for classification for hit song prediction (Dhanaraj & Logan, University of London).
+
 ## Background
 Music streaming services, such as Spotify, Google Music, Apple Music, and Pandora, have become a trend and changed the way of how people listen to musics. Thanks to their availability and convenience, nowadays people can play new songs anytime and anywhere. In fact, listeners are sensitive to the popular songs, and expect the service that can keep them up with the trends. In order to engage the audience and advertise new songs, those streaming services have started to analyze tremendous amount of data collected from their users, try to predict the songs that people will like based on music features, and recommend the predicted songs to the user. This new habit of listening music has inspired us to study the possible techniques for song prediction as well as recommendation.
 
@@ -12,7 +15,7 @@ In digital market, music is a big industry. According to (Add citation here), co
 
 In addition to top song prediction, a music company will want to know what kind of musical elements make a song more likely to be popular as well. Therefore, we also want to figure out those significant musical elements, or musical features, in this project. Finally, from the concept of Occam's razor, a simple model is more favored than a complex one, so we will make our model as simple as possible in the end. Noted that song and track are interchangeable in this report.
 
-In the previous work, XXX and YYY (authors) used Naive Bayes, SVM (RBF), Logistic Regression and C4.5 tree as the binary classifiers in top dance song prediction. One of the good advantages of their work is that AAA. However, there are several cons. First, their dataset is small (400 songs, 21 features) so that the data they collected has a higher chance to be non-representative. Second, not all of the features are useful in prediction, and they did not mentioned which features are significant in prediction. Third, they focus on dance songs only, and ours concentrate on all geners of songs. In the conclusion section, we will compare our results with theirs.
+In the previous work, XXX and YYY (authors) used Naive Bayes, SVM (RBF), Logistic Regression and C4.5 tree as the binary classifiers in top dance song prediction. One of the good advantages of their work is that they provides details about the research such as data gathering (from Echo Nest), preprocessing, detailed description of the technique used. However, there are several cons. First, their dataset is small (400 songs, 21 features) so that the data they collected has a higher chance to be non-representative. Second, not all of the features are useful in prediction, and they did not mentioned which features are significant in prediction. Third, they focus on dance songs only, and ours concentrate on all geners of songs. In the conclusion section, we will compare our results with theirs.
 
 ## Method
 ### Data Collection
