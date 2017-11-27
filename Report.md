@@ -50,11 +50,13 @@ ost             | Is this song a soundtrack.
 Table 1. (Optional: can be deleted)
 
 ### Classification Techniques
+Although the supervised learning algorithms we selected are similar to the reference works, there are no specific reasons why the auothers chosen those classifiers in their works. We will give the reasons why we use them and breifly describe the algorithm.
+
 #### Logistic Regression
-The first classification model we utilized is Logistic Regression, which is an adaption of Linear Regression, and there are several reasons to choose Logistic Regression to start with. For example, Logistic Regression is relatively fast in the process of training and prediction. More importantly, it can provide us with the information about how important our features are, and this would be helpful for future feature selection. Practically, Logistic Regression has different variations, and we chose the one with L2 regularization in this project. Logistic Regression has one hyperparameter, C, to control the model complexity. The lower the value of C, the higher the regularization of the model is.
+The first classification model we utilized is Logistic Regression, which is an adaption of Linear Regression, and there are several reasons to choose Logistic Regression to start with. For example, Logistic Regression is relatively fast in the process of training and prediction. More importantly, it can provide us with the information about how important our features are, and this would be helpful for future feature selection. Practically, Logistic Regression has different variations, and we chose the one with L2 regularization in this project. Regularized Logistic Regression has one hyperparameter, C, to control the model complexity: the lower the value of C, the higher the regularization of the model is.
 
 #### Support Vector Machine (SVM) with Radial Basis Function (RBF) Kernel
-Secondly, we used SVM with RBF kernel as our nonlinear classification model. The complexity of SVM is determined by the two hyperparameters (C for regularization and σ for the RBF kernel). For the purpose of model comparision, we choose SVM because it is a nonlinear classifier while our first model is linear. And the reason to use RBF kernel is due to its common
+Secondly, we used SVM with RBF kernel, instead of polynomial kernel, as our nonlinear classification model since RBF is a very common kernel used in SVM. On the other side, polynomial kernel is often used in Logistic Regression (polynomial features). The complexity of SVM is determined by two hyperparameters (C for regularization and σ for the RBF kernel). For the purpose of model comparision, we choose kernel SVM because it is a nonlinear classifier while our first model is linear.
 
 ## Experiment
 ### Data Preprocessing
