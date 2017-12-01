@@ -14,12 +14,8 @@ Topic: Spotify Top Track Prediction
 [Ongoing report](/Report.md)
 
 ## Notes
-### Papers
-[Precision-recall curves](https://dl.acm.org/citation.cfm?id=1143874)
 ### ShareLatex
 [ShareLatex](https://www.sharelatex.com/project/59dbdd87bc60a256399644e9)
-* figure 
-** label need to be after caption
 
 ### Software Requirements
 * Python with libraries (NumPy, pandas, SciPy, Matplotlib, scikit-learn, spotipy).
