@@ -13,5 +13,5 @@ Topic: Spotify Top Track Prediction
 - Nov. 10: [EDA](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov10.ipynb)
 - Nov. 21: [Feature Selection](https://github.com/thsieh4/CSC522_project/blob/master/progress/CSS522_current_results_Nov21.ipynb)
 
-### Contributors
+## Contributors
 [ragarwa7](https://github.com/ragarwa7), [thsieh4](https://github.com/thsieh4) and [yhong3](https://github.com/yhong3).
